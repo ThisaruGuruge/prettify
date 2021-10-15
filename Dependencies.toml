@@ -7,6 +7,20 @@
 dependencies-toml-version = "2"
 
 [[package]]
+org = "ThisaruGuruge"
+name = "prettify"
+version = "0.1.0"
+dependencies = [
+	{org = "ballerina", name = "file"},
+	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "test"},
+	{org = "ballerinai", name = "observe"}
+]
+modules = [
+	{org = "ThisaruGuruge", packageName = "prettify", moduleName = "prettify"}
+]
+
+[[package]]
 org = "ballerina"
 name = "file"
 version = "1.0.0"
@@ -118,20 +132,6 @@ dependencies = [
 ]
 modules = [
 	{org = "ballerinai", packageName = "observe", moduleName = "observe"}
-]
-
-[[package]]
-org = "thisaru"
-name = "prettify"
-version = "0.1.0"
-dependencies = [
-	{org = "ballerina", name = "file"},
-	{org = "ballerina", name = "io"},
-	{org = "ballerina", name = "test"},
-	{org = "ballerinai", name = "observe"}
-]
-modules = [
-	{org = "thisaru", packageName = "prettify", moduleName = "prettify"}
 ]
 
 

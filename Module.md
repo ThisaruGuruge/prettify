@@ -13,7 +13,7 @@ Following are the example usages.
 
 ```ballerina
 import ballerina/io;
-import thisaru/prettify;
+import ThisaruGuruge/prettify;
 
 public function main() {
     json value = {
@@ -48,7 +48,7 @@ This will print the following:
 
 ```ballerina
 import ballerina/io;
-import thisaru/prettify;
+import ThisaruGuruge/prettify;
 
 public function main() {
     json value = {
