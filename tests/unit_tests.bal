@@ -155,6 +155,26 @@ function testArrayOfMap() returns error? {
 function testComplexExample() returns error? {
     json value = check getJsonContentFromFile("complex_example.json");
     string actual = prettify(value);
-    string expected = check getStringContentFromFile("complex_object.json");
+    string expected = check getStringContentFromFile("complex_example.json");
     test:assertEquals(actual, expected);
+}
+
+@test:Config {
+    groups: ["array", "map"]
+}
+function testComplexExampleWithCustomIndentation() returns error? {
+    json value = check getJsonContentFromFile("complex_example.json");
+    string actual = prettify(value, 2);
+    string expected = check getStringContentFromFile("complex_example_with_custom_indentation.json");
+    test:assertEquals(actual, expected);
+}
+
+@test:Config {
+    groups: ["array", "map"]
+}
+function testComplexExampleWithCustomIndentationInvalidTest() returns error? {
+    json value = check getJsonContentFromFile("complex_example.json");
+    string actual = prettify(value, 2);
+    string expected = check getStringContentFromFile("complex_example.json");
+    test:assertNotEquals(actual, expected);
 }
