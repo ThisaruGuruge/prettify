@@ -63,7 +63,7 @@ function prettifyJsonArray(json[] array, string indentation, int level, boolean 
     result += 'string:join(separator, ...elements);
 
     if !isEmptyArray {
-        result += "\n" + initialIndentation;
+        result += "\n" + getIndentationForLevel(indentation, level);
     }
     result += "]";
     return result;

@@ -1,12 +1,4 @@
-import ballerina/io;
 import ballerina/test;
-
-@test:BeforeSuite
-function setupTests() {
-    printLine();
-    io:println("*   Prettify Json Tests   *");
-    printLine();
-}
 
 @test:Config {
     groups: ["string"]
@@ -14,7 +6,7 @@ function setupTests() {
 function testStringValue() returns error? {
     json value = "Sam";
     string actual = prettify(value);
-    string expected = check getContentFromFile("string_value.json");
+    string expected = check getStringContentFromFile("string_value.json");
     test:assertEquals(actual, expected);
 }
 
@@ -24,7 +16,7 @@ function testStringValue() returns error? {
 function testIntValue() returns error? {
     json value = 515;
     string actual = prettify(value);
-    string expected = check getContentFromFile("int_value.json");
+    string expected = check getStringContentFromFile("int_value.json");
     test:assertEquals(actual, expected);
 }
 
@@ -34,7 +26,7 @@ function testIntValue() returns error? {
 function testBooleanValue() returns error? {
     json value = false;
     string actual = prettify(value);
-    string expected = check getContentFromFile("boolean_value.json");
+    string expected = check getStringContentFromFile("boolean_value.json");
     test:assertEquals(actual, expected);
 }
 
@@ -44,7 +36,7 @@ function testBooleanValue() returns error? {
 function testStringArray() returns error? {
     json value = ["sam", "bam", "tan"];
     string actual = prettify(value);
-    string expected = check getContentFromFile("string_array.json");
+    string expected = check getStringContentFromFile("string_array.json");
     test:assertEquals(actual, expected);
 }
 
@@ -54,7 +46,7 @@ function testStringArray() returns error? {
 function testEmptyArray() returns error? {
     json value = [];
     string actual = prettify(value);
-    string expected = check getContentFromFile("empty_array.json");
+    string expected = check getStringContentFromFile("empty_array.json");
     test:assertEquals(actual, expected);
 }
 
@@ -64,7 +56,7 @@ function testEmptyArray() returns error? {
 function testEmptyMap() returns error? {
     json value = {};
     string actual = prettify(value);
-    string expected = check getContentFromFile("empty_map.json");
+    string expected = check getStringContentFromFile("empty_map.json");
     test:assertEquals(actual, expected);
 }
 
@@ -78,7 +70,7 @@ function testArrayOfEmptyMaps() returns error? {
         {}
     ];
     string actual = prettify(value);
-    string expected = check getContentFromFile("array_of_empty_maps.json");
+    string expected = check getStringContentFromFile("array_of_empty_maps.json");
     test:assertEquals(actual, expected);
 }
 
@@ -90,7 +82,7 @@ function testMapWithStringField() returns error? {
         name: "Walter White"
     };
     string actual = prettify(value);
-    string expected = check getContentFromFile("map_with_string_field.json");
+    string expected = check getStringContentFromFile("map_with_string_field.json");
     test:assertEquals(actual, expected);
 }
 
@@ -104,7 +96,7 @@ function testMapWithMultipleStringFields() returns error? {
         city: "Albequerque"
     };
     string actual = prettify(value);
-    string expected = check getContentFromFile("map_with_multiple_string_fields.json");
+    string expected = check getStringContentFromFile("map_with_multiple_string_fields.json");
     test:assertEquals(actual, expected);
 }
 
@@ -124,7 +116,7 @@ function testMap() returns error? {
         }
     };
     string actual = prettify(value);
-    string expected = check getContentFromFile("map.json");
+    string expected = check getStringContentFromFile("map.json");
     test:assertEquals(actual, expected);
 }
 
@@ -153,6 +145,16 @@ function testArrayOfMap() returns error? {
         }
     ];
     string actual = prettify(value);
-    string expected = check getContentFromFile("array_of_map.json");
+    string expected = check getStringContentFromFile("array_of_map.json");
+    test:assertEquals(actual, expected);
+}
+
+@test:Config {
+    groups: ["array", "map"]
+}
+function testComplexExample() returns error? {
+    json value = check getJsonContentFromFile("complex_example.json");
+    string actual = prettify(value);
+    string expected = check getStringContentFromFile("complex_object.json");
     test:assertEquals(actual, expected);
 }
