@@ -27,7 +27,7 @@ jobs:
 
             - name: Move to Stable Version
               run: |
-                  echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | cut --complement -d- -f2- | xargs)" >> $GITHUB_ENV
+                  echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | cut --complement -d- -f2 | xargs)" >> $GITHUB_ENV
                   echo "Version: ${VERSION}"
                   git checkout -b release-$VERSION
                   sed -i "s/version = \(.*\)-SNAPSHOT/version = \1/g" Ballerina.toml
