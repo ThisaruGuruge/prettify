@@ -15,3 +15,6 @@ jobs:
               with:
                   args:
                       build
+
+            - name: Code Coverage Repository
+              uses: codecov/codecov-action@v2
