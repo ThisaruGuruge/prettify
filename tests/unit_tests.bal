@@ -31,6 +31,16 @@ function testBooleanValue() returns error? {
 }
 
 @test:Config {
+    groups: ["null"]
+}
+function testNullValue() returns error? {
+    json value = null;
+    string actual = prettify(value);
+    string expected = "";
+    test:assertEquals(actual, expected);
+}
+
+@test:Config {
     groups: ["array"]
 }
 function testStringArray() returns error? {
