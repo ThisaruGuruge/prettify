@@ -1,0 +1,11 @@
+[package]
+org = "thisaru"
+name = "prettify"
+version = "0.1.0"
+authors = ["Thisaru Guruge (@ThisaruGuruge)"]
+repository = "https://github.com/ThisaruGuruge/prettify"
+license = ["Apache-2.0"]
+keywords = ["json", "pretty", "print", "json print", "pretty-print", "prettify", "prettify-json"]
+
+[build-options]
+observabilityIncluded = true
