@@ -27,13 +27,14 @@ jobs:
 
             - name: Move to Stable Version
               run: |
-                  echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | cut --complement -d- -f1 | xargs)" >> $GITHUB_ENV
+                  echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | cut --complement -d- -f2- | xargs)" >> $GITHUB_ENV
                   echo "Version: ${VERSION}"
                   git checkout -b release-$VERSION
                   sed -i "s/version = \(.*\)-SNAPSHOT/version = \1/g" Ballerina.toml
                   echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | xargs)" >> $GITHUB_ENV
                   git add Ballerina.toml
                   git commit -m "Bump to version ${VERSION}"
+                  git tag "v$VERSION"
 
             - name: Ballerina Build
               uses: ballerina-platform/ballerina-action@master
@@ -49,11 +50,9 @@ jobs:
             #       args:
             #           push
 
-            - name: Create Release Tag
+            - name: Create GitHub Release
               run: |
-                  git tag "v$VERSION"
-                  git tag -l
-                  git push origin
+                  gh release create v$VERSION --title "Prettify Version $VERSION"
 
             # - name: Post Release Updates
             #   run: python resources/release/release.py
