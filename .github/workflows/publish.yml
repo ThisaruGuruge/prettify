@@ -53,6 +53,9 @@ jobs:
             - name: Create GitHub Release
               run: |
                   gh release create v$VERSION --title "Prettify Version $VERSION"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
             # - name: Post Release Updates
             #   run: python resources/release/release.py
