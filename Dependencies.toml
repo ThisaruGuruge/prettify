@@ -9,7 +9,7 @@ dependencies-toml-version = "2"
 [[package]]
 org = "ThisaruGuruge"
 name = "prettify"
-version = "0.1.0"
+version = "0.1.0-SNAPSHOT"
 dependencies = [
 	{org = "ballerina", name = "file"},
 	{org = "ballerina", name = "io"},

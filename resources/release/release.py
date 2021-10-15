@@ -19,7 +19,7 @@ def update_version():
 
 
 def bump_version(version_line):
-    version_string = version_line.split("=")[-1].strip().replace("\"", "")
+    version_string = version_line.split("=")[-1].strip().replace("\"", "").replace("SNAPSHOT", "")
     version = semver.VersionInfo.parse(version_string)
     new_version = version.bump_patch()
     return new_version

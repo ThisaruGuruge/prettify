@@ -12,6 +12,11 @@ jobs:
               with:
                   ref: 'main'
 
+            - name: Configure Git
+              run: |
+                  git config --global user.name ${{ secrets.USERNAME }}
+                  git config --global user.email ${{ secrets.EMAIL }}
+
             - name: Setup Python
               uses: actions/setup-python@v2
               with:
@@ -20,10 +25,16 @@ jobs:
             - name: Install Python Packages
               run: pip install semver
 
-            - name: Retrieve the Version
+            - name: Move to Stable Version
               run: |
-                  echo
+                  echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | cut --compliment -d- -f1 | xargs)" >> $GITHUB_ENV
+                  echo "Version: ${VERSION}"
+                  git checkout -b release-$VERSION
+                  sed -i "s/version = \(.*\)-SNAPSHOT/version = \1/g" Ballerina.toml
                   echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | xargs)" >> $GITHUB_ENV
+                  git add Ballerina.toml
+                  git commit -m "Bump to version ${VERSION}"
+                  git push origin
 
             - name: Ballerina Build
               uses: ballerina-platform/ballerina-action@master
@@ -41,8 +52,6 @@ jobs:
 
             - name: Create Release Tag
               run: |
-                  git config --global user.name ${{ secrets.USERNAME }}
-                  git config --global user.email ${{ secrets.EMAIL }}
                   git tag "v$VERSION"
                   git tag -l
                   # git push origin
