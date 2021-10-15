@@ -1,0 +1,17 @@
+name: "Pull Request Build"
+
+on: pull_request
+
+jobs:
+    ubuntu-build:
+        name: "Build on Ubuntu"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v1
+
+            - name: Ballerina Build
+              uses: ballerina-platform/ballerina-action@master
+              with:
+                  args:
+                      build
