@@ -7,18 +7,18 @@ on:
     workflow_dispatch:
 
 jobs:
-    ubuntu-build:
-        name: "Build on Ubuntu"
+    build:
+        name: "Master Branch Build"
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
-              uses: actions/checkout@v1
+              uses: actions/checkout@v2
 
             - name: Ballerina Build
               uses: ballerina-platform/ballerina-action@master
               with:
                   args:
-                      build --code-coverage --coverage-format=xml
+                      build -c --code-coverage --coverage-format=xml
 
             - name: Code Coverage Repository
               uses: codecov/codecov-action@v2

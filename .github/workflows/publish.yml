@@ -1,0 +1,54 @@
+name: Publish Package
+
+on: workflow_dispatch
+
+jobs:
+    build-and-publish:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v2
+              with:
+                  ref: 'main'
+
+            - name: Setup Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: '3.x'
+
+            - name: Install Python Packages
+              run: pip install semver
+
+            - name: Retrieve the Version
+              run: |
+                  echo
+                  echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | xargs)" >> $GITHUB_ENV
+
+            - name: Ballerina Build
+              uses: ballerina-platform/ballerina-action@master
+              with:
+                  args:
+                      build -c
+
+            # - name: Push Ballerina Package
+            #   uses: ballerina-platform/ballerina-action@master
+            #   with:
+            #       env:
+            #           BALLERINA_CENTRAL_ACCESS_TOKEN = ${{ secrets.CENTRAL_ACCESS_TOKEN }}
+            #       args:
+            #           push
+
+            - name: Create Release Tag
+              run: |
+                  git config --global user.name ${{ secrets.BALLERINA_BOT_USERNAME }}
+                  git config --global user.email ${{ secrets.BALLERINA_BOT_EMAIL }}
+                  git tag "v$VERSION"
+                  git tag -l
+                  # git push origin
+
+            # - name: Post Release Updates
+            #   run: python resources/release/release.py
+
+            # - name: Commit Files
+            #   run: |
