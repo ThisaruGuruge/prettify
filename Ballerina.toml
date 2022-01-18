@@ -1,5 +1,5 @@
 [package]
-org = "ThisaruGuruge"
+org = "thisarug"
 name = "prettify"
 version = "0.1.5-SNAPSHOT"
 authors = ["Thisaru Guruge (@ThisaruGuruge)"]
