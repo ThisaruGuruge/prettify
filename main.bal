@@ -56,11 +56,10 @@ function prettifyJsonArray(json[] array, string indentation, int level, boolean 
     }
 
     int elementLevel = level + 1;
-    string elementIndentation = getIndentationForLevel(indentation, elementLevel);
 
     string[] elements = array.map(value => prettifyJson(value, indentation, elementLevel));
     string separator = ",\n";
-    result += 'string:join(separator, ...elements);
+    result += 'string:'join(separator, ...elements);
 
     if !isEmptyArray {
         result += "\n" + getIndentationForLevel(indentation, level);
