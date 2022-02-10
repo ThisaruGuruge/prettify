@@ -18,3 +18,16 @@ jobs:
 
             - name: Code Coverage Repository
               uses: codecov/codecov-action@v2
+
+    windows-build:
+        name: Build on Windows
+        runs-on: windows-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v2
+
+          - name: Ballerina Build
+            uses: ballerina-platform/ballerina-action@master
+            with:
+                args:
+                    test
