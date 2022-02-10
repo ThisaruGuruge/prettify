@@ -18,7 +18,7 @@ jobs:
               uses: ballerina-platform/ballerina-action@master
               with:
                   args:
-                      pack --with-tests --code-coverage --coverage-format=xml
+                      test --test-report
 
             - name: Code Coverage Repository
               uses: codecov/codecov-action@v2
