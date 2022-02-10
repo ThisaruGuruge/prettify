@@ -45,13 +45,13 @@ jobs:
                   args:
                       pack
 
-            # - name: Push Ballerina Package
-            #   uses: ballerina-platform/ballerina-action@master
-            #   with:
-            #       env:
-            #           BALLERINA_CENTRAL_ACCESS_TOKEN = ${{ secrets.CENTRAL_ACCESS_TOKEN }}
-            #       args:
-            #           push
+            - name: Push Ballerina Package
+              uses: ballerina-platform/ballerina-action@master
+              with:
+                  env:
+                      BALLERINA_CENTRAL_ACCESS_TOKEN = ${{ secrets.CENTRAL_ACCESS_TOKEN }}
+                  args:
+                      push
 
             - name: Create GitHub Release
               run: |
