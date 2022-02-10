@@ -1,11 +1,9 @@
 # Overview
 
-This module provide an API to prettify `json` values, which are a native type in the Ballerina language.
+This module provides an API to prettify `json` values, which are a native type in the Ballerina language.
 
 ## Usage
-This module has a single API: `prettify`. It takes a a `json` value as the first argument. An optional `indentation`
-parameter can be provided if a custom number of spaces are needed as the indentation. Otherwise, the default 4 spaces
-will be used as the indentation.
+This module has a single API: `prettify`. It takes a `json` value as the first argument. An optional `indentation` parameter can be provided if a custom number of spaces are needed as the indentation. Otherwise, the default 4 spaces will be used as the indentation.
 
 Following are the example usages.
 
