@@ -48,10 +48,9 @@ jobs:
             - name: Push Ballerina Package
               uses: ballerina-platform/ballerina-action@master
               with:
-                  env:
-                      BALLERINA_CENTRAL_ACCESS_TOKEN = ${{ secrets.CENTRAL_ACCESS_TOKEN }}
-                  args:
-                      push
+                  args: push
+              env:
+                  BALLERINA_CENTRAL_ACCESS_TOKEN = ${{ secrets.CENTRAL_ACCESS_TOKEN }}
 
             - name: Create GitHub Release
               run: |
