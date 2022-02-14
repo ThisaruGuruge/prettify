@@ -68,6 +68,6 @@ jobs:
 
             -   name: GitHub Release and Release Sync PR
                 env:
-                    GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: |
                     gh pr create --title "[Automated] Sync master after $VERSION release" --body "Sync master after $VERSION release"
