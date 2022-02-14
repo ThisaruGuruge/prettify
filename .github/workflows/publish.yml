@@ -64,4 +64,10 @@ jobs:
 
             - name: Commit Files
               run: |
-                  git commit -am "[AUTOMATED] Update Version After the Release"
+                  git commit -am "[AUTOMATED] Update Version After the Release ${VERSION}"
+
+            -   name: GitHub Release and Release Sync PR
+                env:
+                    GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
+                run: |
+                    gh pr create --title "[Automated] Sync master after $VERSION release" --body "Sync master after $VERSION release"
