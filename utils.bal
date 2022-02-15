@@ -1,4 +1,4 @@
-function getIndentation(int indentation) returns string {
+isolated function getIndentation(int indentation) returns string {
     string result = "";
     foreach int i in 1...indentation {
         result += " ";
@@ -6,7 +6,7 @@ function getIndentation(int indentation) returns string {
     return result;
 }
 
-function getIndentationForLevel(string indentation, int level) returns string {
+isolated function getIndentationForLevel(string indentation, int level) returns string {
     string result = "";
     foreach int i in 1...level {
         result += indentation;
@@ -14,14 +14,14 @@ function getIndentationForLevel(string indentation, int level) returns string {
     return result;
 }
 
-function getInitialIndentation(string indentation, int level, boolean isMapField) returns string {
+isolated function getInitialIndentation(string indentation, int level, boolean isMapField) returns string {
     if isMapField {
         return " ";
     }
     return getIndentationForLevel(indentation, level);
 }
 
-function prettifyJson(json value, string indentation, int level, boolean isMapField = false) returns string {
+isolated function prettifyJson(json value, string indentation, int level, boolean isMapField = false) returns string {
     if value == () {
         return "";
     } else if value is map<json> {
@@ -33,7 +33,7 @@ function prettifyJson(json value, string indentation, int level, boolean isMapFi
     }
 }
 
-function prettifyJsonMap(map<json> value, string indentation, int level, boolean isMapField) returns string {
+isolated function prettifyJsonMap(map<json> value, string indentation, int level, boolean isMapField) returns string {
     string initialIndentation = getInitialIndentation(indentation, level, isMapField);
     string result = string`${initialIndentation}{`;
     boolean isEmptyMap = value.keys().length() == 0;
@@ -64,7 +64,7 @@ function prettifyJsonMap(map<json> value, string indentation, int level, boolean
 }
 
 
-function prettifyJsonArray(json[] array, string indentation, int level, boolean isMapField) returns string {
+isolated function prettifyJsonArray(json[] array, string indentation, int level, boolean isMapField) returns string {
     string initialIndentation = getInitialIndentation(indentation, level, isMapField);
     string result = string`${initialIndentation}[`;
 
@@ -74,8 +74,10 @@ function prettifyJsonArray(json[] array, string indentation, int level, boolean 
     }
 
     int elementLevel = level + 1;
-
-    string[] elements = array.map(value => prettifyJson(value, indentation, elementLevel));
+    string[] elements = [];
+    foreach json value in array {
+        elements.push(prettifyJson(value, indentation, elementLevel));
+    }
     string separator = ",\n";
     result += 'string:'join(separator, ...elements);
 
@@ -86,7 +88,7 @@ function prettifyJsonArray(json[] array, string indentation, int level, boolean 
     return result;
 }
 
-function prettifyJsonField(json value, string indentation, int level, boolean isMapField) returns string {
+isolated function prettifyJsonField(json value, string indentation, int level, boolean isMapField) returns string {
     string initialIndentation = getInitialIndentation(indentation, level, isMapField);
     string result = initialIndentation;
     result += value.toJsonString();
