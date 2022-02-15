@@ -27,7 +27,7 @@ jobs:
               run: pip install semver
 
             - name: Retrieve the Version
-              run: echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | cut --complement -d- -f1- | xargs)" >> $GITHUB_ENV
+              run: echo "VERSION=$((grep -w 'version' | cut -d= -f2) < Ballerina.toml | rev | tr -d '\"' | cut --complement -d- -f1 | rev | xargs)" >> $GITHUB_ENV
 
             - name: Move to Stable Version
               run: |
